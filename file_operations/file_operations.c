@@ -40,9 +40,9 @@ static int device_release (struct inode *inode, struct file *filp)
 static ssize_t device_read (struct file *filp , char __user * buff, size_t count, loff_t *off)
 {
     PINFO ("device reading %d byte\n with %lld offset", message_size, *off);
-    if ((copy_to_user(buff, message, message_size)) != 0)
+    if ((copy_to_user(buff, message, message_size + 1)) != 0)
         return -EFAULT;
-    return message_size;
+    return message_size + 1;
 }
 
 static ssize_t device_write(struct file *filp, const char __user * buff, size_t count, loff_t *off)
